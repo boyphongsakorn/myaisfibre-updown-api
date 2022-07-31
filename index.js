@@ -30,10 +30,10 @@ fastify.get('/', async (request, reply) => {
     if(lasttime.getTime() + 300000 > nowtime.getTime()) {
         return {result: 'ignore', Msg: 'please wait 5 minutes'}
     }else{
-        const getrequest = await fetch("https://myaisfibre.com/index.php", {"headers": headers,"body": "page=toggleSpeed&action=confirmChangeSpeed&data=rotate(70deg)","method": "POST"})
+        const getrequest = await fetch("https://myaisfibre.com/index.php", {"headers": headers,"body": "page=toggleSpeed&action=confirmChangeSpeed&data=rotate("+rotatespeed+")","method": "POST"})
         const getresponse = await getrequest.json();
         if(getresponse.Result == 'OK' || getresponse.result == 'OK') {
-            const confrimrequest = await fetch("https://myaisfibre.com/index.php", {"headers": headers,"body": "page=toggleSpeed&action=toggleBandwidth&data%5Bnon%5D="+intnumber+"&data%5Bcode%5D=rotate(70deg)","method": "POST"})
+            const confrimrequest = await fetch("https://myaisfibre.com/index.php", {"headers": headers,"body": "page=toggleSpeed&action=toggleBandwidth&data%5Bnon%5D="+intnumber+"&data%5Bcode%5D=rotate("+rotatespeed+")","method": "POST"})
             const confrimresponse = await confrimrequest.json();
             const result = confrimresponse.Result || confrimresponse.result;
             if(result.toUpperCase() == 'SUCCESS') {
