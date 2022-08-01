@@ -19,6 +19,9 @@ let headers = {
     "Referrer-Policy": "strict-origin-when-cross-origin"
 };
 
+//nowtime - 5 minutes
+nowtime = new Date(lasttime.getTime() - (5 * 60 * 1000));
+
 fastify.get('/', async (request, reply) => {
     //let rotateofspeed from query rotatespeed
     let rotatespeed = request.query.rotatespeed
