@@ -1,7 +1,9 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const fastify = require('fastify')({ logger: true })
+const cheerio = require('cheerio');
 
 let intnumber = process.env.aisfiber_internet_id || 'xxxxxxxxxx'
+let speed = "500/500";
 let lasttime = new Date();
 let nowtime = lasttime;
 let headers = {
@@ -33,9 +35,28 @@ fastify.get('/', async (request, reply) => {
     if (lasttime.getTime() + 300000 > nowtime.getTime() && lasttime.getTime() != nowtime.getTime()) {
         return { result: 'ignore', Msg: 'please wait 5 minutes for next request' }
     } else {
+        const myspeed = await fetch('https://myaisfibre.com/')
+        const $ = cheerio.load(await myspeed.text());
+        //get all span
+        let spans = $('span');
+        //loop all span
+        for (let i = 0; i < spans.length; i++) {
+            //get span text
+            let spantext = spans[i];
+            try {
+                //get only Text has Mbps and length is not over 15
+                if (spantext.children[0].data.includes('Mbps') && spantext.children[0].data.length < 15) {
+                    console.log(spantext.children[0].data);
+                    //remove Mbps and space and set to speed
+                    speed = spantext.children[0].data.replace('Mbps', '').replace(' ', '');
+                }
+            } catch (error) {
+                
+            }
+        }
         const getrequest = await fetch("https://myaisfibre.com/index.php", { "headers": headers, "body": "page=toggleSpeed&action=confirmChangeSpeed&data=rotate(" + rotatespeed + ")", "method": "POST" })
         const getresponse = await getrequest.json();
-        if (getresponse.Result == 'OK' || getresponse.result == 'OK') {
+        if ((getresponse.Result == 'OK' || getresponse.result == 'OK') && getresponse.Msg != speed) {
             const confrimrequest = await fetch("https://myaisfibre.com/index.php", { "headers": headers, "body": "page=toggleSpeed&action=toggleBandwidth&data%5Bnon%5D=" + intnumber + "&data%5Bcode%5D=rotate(" + rotatespeed + ")", "method": "POST" })
             const confrimresponse = await confrimrequest.json();
             const result = confrimresponse.Result || confrimresponse.result;
@@ -46,7 +67,11 @@ fastify.get('/', async (request, reply) => {
                 return { result: 'error', Msg: confrimresponse.detail }
             }
         } else {
-            return { result: 'error', Msg: getresponse.Msg }
+            if(getresponse.Msg == speed){
+                return { result: 'ignore', Msg: 'same speed' }
+            }else{
+                return { result: 'error', Msg: getresponse.Msg }
+            }
         }
     }
 })
