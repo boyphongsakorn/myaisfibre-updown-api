@@ -28,7 +28,7 @@ fastify.get('/', async (request, reply) => {
     //let rotateofspeed from query rotatespeed
     let rotatespeed = request.query.rotatespeed
     if (intnumber == 'xxxxxxxxxx' || intnumber == '' || intnumber.length != 10) {
-        return { result: 'ignore', Msg: 'Please set internet id in environment variable aisfiber_internet_id' }
+        return { result: 'ignore', Msg: 'Please set internet id in environment variable : aisfiber_internet_id' }
     }
     //if lasttime < nowtime 5 minute
     nowtime = new Date();
