@@ -23,12 +23,12 @@ fastify.get('/', async (request, reply) => {
     //let rotateofspeed from query rotatespeed
     let rotatespeed = request.query.rotatespeed
     if(intnumber == 'xxxxxxxxxx' || intnumber == '' || intnumber.length != 10) {
-        return {result: 'ignore', Msg: 'Please set internet id'}
+        return {result: 'ignore', Msg: 'Please set internet id in environment variable aisfiber_internet_id'}
     }
     //if lasttime < nowtime 5 minute
     nowtime = new Date();
     if(lasttime.getTime() + 300000 > nowtime.getTime()) {
-        return {result: 'ignore', Msg: 'please wait 5 minutes'}
+        return {result: 'ignore', Msg: 'please wait 5 minutes for next request'}
     }else{
         const getrequest = await fetch("https://myaisfibre.com/index.php", {"headers": headers,"body": "page=toggleSpeed&action=confirmChangeSpeed&data=rotate("+rotatespeed+")","method": "POST"})
         const getresponse = await getrequest.json();
