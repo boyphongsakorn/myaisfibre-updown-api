@@ -46,7 +46,6 @@ fastify.get('/', async (request, reply) => {
             try {
                 //get only Text has Mbps and length is not over 15
                 if (spantext.children[0].data.includes('Mbps') && spantext.children[0].data.length < 15) {
-                    console.log(spantext.children[0].data);
                     //remove Mbps and space and set to speed
                     speed = spantext.children[0].data.replace('Mbps', '').replace(' ', '');
                 }
@@ -56,6 +55,7 @@ fastify.get('/', async (request, reply) => {
         }
         const getrequest = await fetch("https://myaisfibre.com/index.php", { "headers": headers, "body": "page=toggleSpeed&action=confirmChangeSpeed&data=rotate(" + rotatespeed + ")", "method": "POST" })
         const getresponse = await getrequest.json();
+        console.log(speed);
         console.log(getresponse.Msg);
         if ((getresponse.Result == 'OK' || getresponse.result == 'OK') && getresponse.Msg != speed) {
             const confrimrequest = await fetch("https://myaisfibre.com/index.php", { "headers": headers, "body": "page=toggleSpeed&action=toggleBandwidth&data%5Bnon%5D=" + intnumber + "&data%5Bcode%5D=rotate(" + rotatespeed + ")", "method": "POST" })
