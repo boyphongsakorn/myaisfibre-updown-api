@@ -41,7 +41,7 @@ fastify.get('/', async (request, reply) => {
             const result = confrimresponse.Result || confrimresponse.result;
             if (result.toUpperCase() == 'SUCCESS') {
                 lasttime = new Date();
-                return { result: 'success', Msg: 'change internet speed to' + confrimresponse.data }
+                return { result: 'success', Msg: 'change internet speed to ' + confrimresponse.data }
             } else {
                 return { result: 'error', Msg: confrimresponse.detail }
             }
