@@ -3,7 +3,7 @@ const fastify = require('fastify')({ logger: true })
 
 let intnumber = process.env.aisfiber_internet_id || 'xxxxxxxxxx'
 let lasttime = new Date();
-let nowtime = new Date();
+let nowtime = lasttime;
 let headers = {
     "accept": "*/*",
     "accept-language": "th-TH,th;q=0.9,en;q=0.8",
