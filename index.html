@@ -17,7 +17,7 @@
     <div class="container" style="text-align: center;">
         <h3>My Ais Fiber Upload/Download API*</h3>
         <p id="desp">A self-host toggle speed api call</p>
-        <div style="background-color: darkgrey;padding: 10px;border-radius: 5px;">docker run -d --restart=always -p 3990:3000 --name myaisfiber-updown-auto boyphongsakorn/myaisfiber-updown-auto:latest</div>
+        <div style="background-color: darkgrey;padding: 10px;border-radius: 5px;">docker run -d --restart=always -p 3990:3000 --name myaisfibre-updown-auto boyphongsakorn/myaisfibre-updown-auto:latest</div>
         <select id="package" style="margin: 10px;" onchange="packagechange(this.value)">
             <option value="power4advance" disabled>POWER4 Advance</option>
             <option value="broadband24">BROADBAND24</option>
@@ -53,10 +53,10 @@
         </div>
         <div style="background-color: red;padding: 10px;border-radius: 10px;margin-top: 10px;" id="becareful">
             *not every package have this feature. (BROADBAND24,POWER4 Special II,BYOD (<= 599),Serenade 899 Only,SuperMESH WiFi 999 Only)
-            <br>you have to check your package or check function "Change Internet Speed" in myaisfiber.com
+            <br>you have to check your package or check function "Change Internet Speed" in myaisfibre.com
             <br>becareful when use this api. if you got a ban, it just you not me. 🤪
         </div>
-        <a href="https://github.com/boyphongsakorn/myaisfiber-updown-auto" style="color: white;text-decoration: none;">Github</a> <a href="https://github.com/sponsors/boyphongsakorn" style="color: white;text-decoration: none;">Sponsor</a>
+        <a href="https://github.com/boyphongsakorn/myaisfibre-updown-auto" style="color: white;text-decoration: none;">Github</a> <a href="https://github.com/sponsors/boyphongsakorn" style="color: white;text-decoration: none;">Sponsor</a>
     </div>
     <script>
         //get url parameter
@@ -72,7 +72,7 @@
 
         if(lang == 'th'){
             document.getElementById('desp').innerText = 'ตั้งโฮสต์ส่วนตัว เรียก API ปรับสปีดอินเทอร์เน็ต';
-            document.getElementById('becareful').innerHTML = '*ไม่ใช่ทุกแพ็กเกจมีคุณสมบัตินี้ (BROADBAND24,POWER4 Special II,BYOD (<= 599 บาท),Serenade 899 บาท,SuperMESH WiFi 999 บาท)<br>คุณจะต้องตรวจสอบแพ็กเกจของคุณหรือตรวจสอบฟังก์ชั่น "ปรับสปีดอินเทอร์เน็ต" ที่ myaisfiber.com<br>รับความเสี่ยงด้วยตัวเอง เมื่อคุณใช้ API นี้ หากคุณโดนแบน เราจะไม่ยอมรับความเสี่ยงนี้';
+            document.getElementById('becareful').innerHTML = '*ไม่ใช่ทุกแพ็กเกจมีคุณสมบัตินี้ (BROADBAND24,POWER4 Special II,BYOD (<= 599 บาท),Serenade 899 บาท,SuperMESH WiFi 999 บาท)<br>คุณจะต้องตรวจสอบแพ็กเกจของคุณหรือตรวจสอบฟังก์ชั่น "ปรับสปีดอินเทอร์เน็ต" ที่ myaisfibre.com<br>รับความเสี่ยงด้วยตัวเอง เมื่อคุณใช้ API นี้ หากคุณโดนแบน เราจะไม่ยอมรับความเสี่ยงนี้';
         }
 
         function packagechange(package){
