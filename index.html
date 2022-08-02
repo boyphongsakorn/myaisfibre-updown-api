@@ -84,7 +84,7 @@
                 document.getElementById("power4package").style.display = "inline-block";
                 document.querySelectorAll("#power4package option").forEach(opt => {
                         if(opt.value == "1500500" || opt.value == "2000500") {
-                            opt.disabled = true;
+                            opt.style.display = "none";
                         }
                 });
             }else if(package == "byod"){
@@ -93,17 +93,17 @@
                 //disable power4package 1000/200 value
                 document.querySelectorAll("#power4package option").forEach(opt => {
                     if (opt.value == "1000200") {
-                        opt.disabled = true;
+                        opt.style.display = "none";
                     }
                     if (opt.value == "500") {
-                        opt.disabled = false;
+                        opt.style.display = "inline-block";
                     }
                 });
             }else if(package == "serenade" || package == "supermesh"){
                 document.getElementById("power4package").style.display = "inline-block";
                 document.querySelectorAll("#power4package option").forEach(opt => {
                     if (opt.value == "500" || opt.value == "1000200") {
-                        opt.disabled = true;
+                        opt.style.display = "none";
                     }
                 });
                 document.getElementById("power4package").value = "1000500";
