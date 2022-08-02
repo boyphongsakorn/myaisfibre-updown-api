@@ -69,7 +69,7 @@ fastify.get('/', async (request, reply) => {
             }
         } else {
             if(getresponse.Msg == speed){
-                return { result: 'ignore', Msg: 'same speed' }
+                return { result: 'ignore', Msg: 'same speed don\'t need to change' }
             }else{
                 return { result: 'error', Msg: getresponse.Msg }
             }
