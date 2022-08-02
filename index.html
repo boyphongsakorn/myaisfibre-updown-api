@@ -16,28 +16,105 @@
 <body>
     <div class="container" style="text-align: center;">
         <h3>My Ais Fiber Upload/Download API*</h3>
-        <p>A self-host toggle speed api call</p>
+        <p id="desp">A self-host toggle speed api call</p>
         <div style="background-color: darkgrey;padding: 10px;border-radius: 5px;">docker run -d --restart=always -p 3990:3000 --name myaisfiber-updown-auto boyphongsakorn/myaisfiber-updown-auto:latest</div>
-        <div class="row" style="margin: 10px;">
+        <select id="package" style="margin: 10px;" onchange="packagechange(this.value)">
+            <option value="broadband24">BROADBAND24</option>
+            <option value="power4">POWER4 Special II</option>
+            <option value="byod">BYOD (<= 599)</option>
+            <option value="serenade">Serenade 899 Only</option>
+            <option value="supermesh">SuperMESH WiFi 999 Only</option>
+        </select>
+        <select id="power4package" style="margin: 10px;display: none;" onchange="power4change(this.value)">
+            <option value="500">500/500 Mbps</option>
+            <option value="1000200">1000/200 Mbps</option>
+            <option value="1000500">1000/500 Mbps</option>
+        </select>
+        Last Update: 02/08/2022
+        <div class="row">
             <div class="four columns">
+                <p id="normal">500/500 Mbps</p>
                 <img src="https://hwc-statics.ais.th/fibre/images/package_supermeshwifi/speed_meter2.png">
                 <div style="background-color: darkgrey;padding: 10px;border-radius: 5px;">http(s)://ip:3990/?rotatespeed=0deg</div>
             </div>
             <div class="four columns">
+                <p id="fullupload">300/1000 Mbps</p>
                 <img src="https://hwc-statics.ais.th/fibre/images/package_supermeshwifi/speed_meter3.png">
                 <div style="background-color: darkgrey;padding: 10px;border-radius: 5px;">http(s)://ip:3990/?rotatespeed=70deg</div>
             </div>
             <div class="four columns">
+                <p id="fulldownload">1000/300 Mbps</p>
                 <img src="https://hwc-statics.ais.th/fibre/images/package_supermeshwifi/speed_meter1.png">
                 <div style="background-color: darkgrey;padding: 10px;border-radius: 5px;">http(s)://ip:3990/?rotatespeed=-70deg</div>
             </div>
         </div>
-        <div style="background-color: red;padding: 10px;border-radius: 10px;">
+        <div style="background-color: red;padding: 10px;border-radius: 10px;margin-top: 10px;" id="becareful">
             *not every package have this feature. (BROADBAND24,POWER4 Special II,BYOD (<= 599),Serenade 899 Only,SuperMESH WiFi 999 Only)
             <br>you have to check your package or check function "Change Internet Speed" in myaisfiber.com
             <br>becareful when use this api. if you got a ban, it just you not me. 🤪
         </div>
         <a href="https://github.com/boyphongsakorn/myaisfiber-updown-auto" style="color: white;text-decoration: none;">Github</a> <a href="https://github.com/sponsors/boyphongsakorn" style="color: white;text-decoration: none;">Sponsor</a>
     </div>
+    <script>
+        //get url parameter
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+        var lang = getUrlVars()["lang"];
+        console.log(lang);
+
+        if(lang == 'th'){
+            document.getElementById('desp').innerText = 'ตั้งโฮสต์ส่วนตัว เรียก API ปรับสปีดอินเทอร์เน็ต';
+            document.getElementById('becareful').innerHTML = '*ไม่ใช่ทุกแพ็กเกจมีคุณสมบัตินี้ (BROADBAND24,POWER4 Special II,BYOD (<= 599 บาท),Serenade 899 บาท,SuperMESH WiFi 999 บาท)<br>คุณจะต้องตรวจสอบแพ็กเกจของคุณหรือตรวจสอบฟังก์ชั่น "ปรับสปีดอินเทอร์เน็ต" ที่ myaisfiber.com<br>รับความเสี่ยงด้วยตัวเอง เมื่อคุณใช้ API นี้ หากคุณโดนแบน เราจะไม่ยอมรับความเสี่ยงนี้';
+        }
+
+        function packagechange(package){
+            if(package == "broadband24"){
+                document.getElementById("power4package").style.display = "none";
+                document.getElementById("normal").innerHTML = "500/500 Mbps";
+                document.getElementById("fullupload").innerHTML = "300/1000 Mbps";
+                document.getElementById("fulldownload").innerHTML = "1000/300 Mbps";
+            }else if(package == "power4"){
+                document.getElementById("power4package").style.display = "inline-block";
+                document.querySelectorAll("#power4package option").forEach(opt => {
+                        opt.disabled = false;
+                });
+            }else if(package == "byod"){
+                document.getElementById("power4package").style.display = "inline-block";
+                document.getElementById("power4package").value = "500";
+                //disable power4package 1000/200 value
+                document.querySelectorAll("#power4package option").forEach(opt => {
+                    if (opt.value == "1000200") {
+                        opt.disabled = true;
+                    }
+                });
+            }else if(package == "serenade" || package == "supermesh"){
+                document.getElementById("power4package").style.display = "none";
+                document.getElementById("normal").innerHTML = "750/750 Mbps";
+                document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
+                document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
+            }
+        }
+
+        function power4change(package){
+            if(package == "500"){
+                document.getElementById("normal").innerHTML = "500/500 Mbps";
+                document.getElementById("fullupload").innerHTML = "300/1000 Mbps";
+                document.getElementById("fulldownload").innerHTML = "1000/300 Mbps";
+            }else if(package == "1000200"){
+                document.getElementById("normal").innerHTML = "600/600 Mbps";
+                document.getElementById("fullupload").innerHTML = "200/1000 Mbps";
+                document.getElementById("fulldownload").innerHTML = "1000/200 Mbps";
+            }else if(package == "1000500"){
+                document.getElementById("normal").innerHTML = "750/750 Mbps";
+                document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
+                document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
+            }
+        }
+    </script>
 </body>
 </html>
