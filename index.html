@@ -21,14 +21,16 @@
         <select id="package" style="margin: 10px;" onchange="packagechange(this.value)">
             <option value="broadband24">BROADBAND24</option>
             <option value="power4">POWER4 Special II</option>
-            <option value="byod">BYOD (<= 599)</option>
-            <option value="serenade">Serenade 899 Only</option>
-            <option value="supermesh">SuperMESH WiFi 999 Only</option>
+            <option value="byod">BYOD</option>
+            <option value="serenade">Serenade</option>
+            <option value="supermesh">SuperMESH WiFi</option>
         </select>
         <select id="power4package" style="margin: 10px;display: none;" onchange="power4change(this.value)">
             <option value="500">500/500 Mbps</option>
             <option value="1000200">1000/200 Mbps</option>
             <option value="1000500">1000/500 Mbps</option>
+            <option value="1500500" disabled>1500/500 Mbps</option>
+            <option value="2000500" disabled>2000/500 Mbps</option>
         </select>
         Last Update: 02/08/2022
         <div class="row">
@@ -81,7 +83,9 @@
             }else if(package == "power4"){
                 document.getElementById("power4package").style.display = "inline-block";
                 document.querySelectorAll("#power4package option").forEach(opt => {
-                        opt.disabled = false;
+                        if(opt.value == "1500500" || opt.value == "2000500") {
+                            opt.disabled = true;
+                        }
                 });
             }else if(package == "byod"){
                 document.getElementById("power4package").style.display = "inline-block";
@@ -91,9 +95,18 @@
                     if (opt.value == "1000200") {
                         opt.disabled = true;
                     }
+                    if (opt.value == "500") {
+                        opt.disabled = false;
+                    }
                 });
             }else if(package == "serenade" || package == "supermesh"){
-                document.getElementById("power4package").style.display = "none";
+                document.getElementById("power4package").style.display = "inline-block";
+                document.querySelectorAll("#power4package option").forEach(opt => {
+                    if (opt.value == "500" || opt.value == "1000200") {
+                        opt.disabled = true;
+                    }
+                });
+                document.getElementById("power4package").value = "1000500";
                 document.getElementById("normal").innerHTML = "750/750 Mbps";
                 document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
                 document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
