@@ -19,14 +19,17 @@
         <p id="desp">A self-host toggle speed api call</p>
         <div style="background-color: darkgrey;padding: 10px;border-radius: 5px;">docker run -d --restart=always -p 3990:3000 --name myaisfibre-updown-auto boyphongsakorn/myaisfibre-updown-auto:latest</div>
         <select id="package" style="margin: 10px;" onchange="packagechange(this.value)">
-            <option value="power4advance" disabled>POWER4 Advance</option>
+            <option disabled>POWER4 Advance</option>
             <option value="broadband24">BROADBAND24</option>
             <option value="power4">POWER4 Special II</option>
             <option value="byod">BYOD</option>
             <option value="serenade">Serenade</option>
             <option value="supermesh">SuperMESH WiFi</option>
+            <option value="esports">eSports</option>
         </select>
         <select id="power4package" style="margin: 10px;display: none;" onchange="power4change(this.value)">
+            <option value="200">200/200 Mbps</option>
+            <option value="300">300/300 Mbps</option>
             <option value="500">500/500 Mbps</option>
             <option value="1000200">1000/200 Mbps</option>
             <option value="1000500">1000/500 Mbps</option>
@@ -83,8 +86,10 @@
                 document.getElementById("fulldownload").innerHTML = "1000/300 Mbps";
             }else if(package == "power4"){
                 document.getElementById("power4package").style.display = "inline-block";
+                document.getElementById("power4package").value = "500";
+                power4change("500");
                 document.querySelectorAll("#power4package option").forEach(opt => {
-                        if(opt.value == "1500500" || opt.value == "2000500") {
+                        if(opt.value == "1500500" || opt.value == "2000500" || opt.value == "200" || opt.value == "300") {
                             opt.style.display = "none";
                         }
                         if (opt.value == "1000200") {
@@ -94,42 +99,95 @@
             }else if(package == "byod"){
                 document.getElementById("power4package").style.display = "inline-block";
                 document.getElementById("power4package").value = "500";
+                power4change("500");
                 //disable power4package 1000/200 value
                 document.querySelectorAll("#power4package option").forEach(opt => {
-                    if (opt.value == "1000200") {
+                    if (opt.value != "500" || opt.value != "1000500") {
                         opt.style.display = "none";
                     }
-                    if (opt.value == "500") {
+                    if (opt.value == "500" || opt.value == "1000500") {
                         opt.style.display = "inline-block";
                     }
                 });
             }else if(package == "serenade" || package == "supermesh"){
                 document.getElementById("power4package").style.display = "inline-block";
                 document.querySelectorAll("#power4package option").forEach(opt => {
-                    if (opt.value == "500" || opt.value == "1000200") {
+                    if (opt.value != "1000500") {
                         opt.style.display = "none";
                     }
                 });
                 document.getElementById("power4package").value = "1000500";
-                document.getElementById("normal").innerHTML = "750/750 Mbps";
+                power4change("1000500");
+                /*document.getElementById("normal").innerHTML = "750/750 Mbps";
                 document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
-                document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
+                document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";*/
+            }else if(package == "esports"){
+                document.getElementById("power4package").style.display = "inline-block";
+                document.getElementById("power4package").value = "200";
+                power4change("200");
+                document.querySelectorAll("#power4package option").forEach(opt => {
+                    if (opt.value != "200" || opt.value != "300" || opt.value != "500") {
+                        opt.style.display = "none";
+                    }
+                    if (opt.value == "200" || opt.value == "300" || opt.value == "500"){
+                        opt.style.display = "inline-block";
+                    }
+                });
             }
         }
 
         function power4change(package){
-            if(package == "500"){
-                document.getElementById("normal").innerHTML = "500/500 Mbps";
-                document.getElementById("fullupload").innerHTML = "300/1000 Mbps";
-                document.getElementById("fulldownload").innerHTML = "1000/300 Mbps";
-            }else if(package == "1000200"){
-                document.getElementById("normal").innerHTML = "600/600 Mbps";
-                document.getElementById("fullupload").innerHTML = "200/1000 Mbps";
-                document.getElementById("fulldownload").innerHTML = "1000/200 Mbps";
-            }else if(package == "1000500"){
-                document.getElementById("normal").innerHTML = "750/750 Mbps";
-                document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
-                document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
+            var packagename = document.getElementById("package").value;
+            if(packagename == "esports"){
+                if(package == "200"){
+                    document.getElementById("normal").innerHTML = "200/200 Mbps";
+                    document.getElementById("fullupload").innerHTML = "50/400 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "400/50 Mbps";
+                }else if(package == "300"){
+                    document.getElementById("normal").innerHTML = "300/300 Mbps";
+                    document.getElementById("fullupload").innerHTML = "50/600 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "600/50 Mbps";
+                }else if(package == "500"){
+                    document.getElementById("normal").innerHTML = "500/500 Mbps";
+                    document.getElementById("fullupload").innerHTML = "50/1000 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "1000/50 Mbps";
+                }
+            }else if(packagename == "power4"){
+                if(package == "500"){
+                    document.getElementById("normal").innerHTML = "500/500 Mbps";
+                    document.getElementById("fullupload").innerHTML = "50/1000 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "1000/50 Mbps";
+                }else if(package == "1000200"){
+                    document.getElementById("normal").innerHTML = "600/600 Mbps";
+                    document.getElementById("fullupload").innerHTML = "200/1000 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "1000/200 Mbps";
+                }else if(package == "1000500"){
+                    document.getElementById("normal").innerHTML = "750/750 Mbps";
+                    document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
+                }
+            }else if(packagename == "supermesh"){
+                if(package == "1000500"){
+                    document.getElementById("normal").innerHTML = "750/750 Mbps";
+                    document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
+                }
+            }else if(packagename == "byod"){
+                if(package == "500"){
+                    document.getElementById("normal").innerHTML = "500/500 Mbps";
+                    document.getElementById("fullupload").innerHTML = "300/1000 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "1000/300 Mbps";
+                }else if(package == "1000500"){
+                    document.getElementById("normal").innerHTML = "750/750 Mbps";
+                    document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
+                }
+            }else if(packagename == "serenade"){
+                if(package == "1000500"){
+                    document.getElementById("normal").innerHTML = "750/750 Mbps";
+                    document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
+                }
             }
         }
     </script>
