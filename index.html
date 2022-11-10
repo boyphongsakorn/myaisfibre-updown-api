@@ -112,6 +112,9 @@
                 });
             }else if(package == "serenade" || package == "supermesh"){
                 document.getElementById("power4package").style.display = "inline-block";
+                if(package == "serenade"){
+                    document.getElementById("power4package").style.display = "none";
+                }
                 document.querySelectorAll("#power4package option").forEach(opt => {
                     if (opt.value != "1000500") {
                         opt.style.display = "none";
