@@ -27,6 +27,7 @@
             <option value="broadband24">BROADBAND24</option>
             <option value="power4">POWER4 Special II</option>
             <option value="esports">eSports</option>
+            <option value="power4online">POWER4 Online</option>
         </select>
         <select id="power4package" style="margin: 10px;display: none;" onchange="power4change(this.value)">
             <option value="200">200/200 Mbps</option>
@@ -95,6 +96,18 @@
                             opt.style.display = "none";
                         }
                         if (opt.value == "1000200" || opt.value == "500") {
+                            opt.style.display = "inline-block";
+                        }
+                });
+            }else if(package == "power4online"){
+                document.getElementById("power4package").style.display = "inline-block";
+                document.getElementById("power4package").value = "300";
+                power4change("300");
+                document.querySelectorAll("#power4package option").forEach(opt => {
+                        if(opt.value == "1500500" || opt.value == "2000500" || opt.value == "200" || opt.value == "1000200") {
+                            opt.style.display = "none";
+                        }
+                        if (opt.value == "300") {
                             opt.style.display = "inline-block";
                         }
                 });
@@ -170,6 +183,12 @@
                     document.getElementById("normal").innerHTML = "750/750 Mbps";
                     document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
                     document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
+                }
+            }else if(packagename == "power4online"){
+                if(package == "300"){
+                    document.getElementById("normal").innerHTML = "300/300 Mbps";
+                    document.getElementById("fullupload").innerHTML = "50/600 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "600/50 Mbps";
                 }
             }else if(packagename == "supermesh"){
                 if(package == "1000500"){
