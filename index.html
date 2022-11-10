@@ -19,12 +19,13 @@
         <p id="desp">A self-host toggle speed api call</p>
         <div style="background-color: darkgrey;padding: 10px;border-radius: 5px;">docker run -d --restart=always -p 3990:3000 --name myaisfibre-updown-auto boyphongsakorn/myaisfibre-updown-auto:latest</div>
         <select id="package" style="margin: 10px;" onchange="packagechange(this.value)">
+            <option disabled>2Gbps Fibre Package</option>
             <option disabled>POWER4 Advance</option>
+            <option value="serenade">Serenade</option>
+            <option value="byod">BYOD</option>
+            <option value="supermesh">SuperMESH WiFi</option>
             <option value="broadband24">BROADBAND24</option>
             <option value="power4">POWER4 Special II</option>
-            <option value="byod">BYOD</option>
-            <option value="serenade">Serenade</option>
-            <option value="supermesh">SuperMESH WiFi</option>
             <option value="esports">eSports</option>
         </select>
         <select id="power4package" style="margin: 10px;display: none;" onchange="power4change(this.value)">
