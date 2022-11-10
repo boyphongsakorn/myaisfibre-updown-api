@@ -104,11 +104,13 @@
                 document.getElementById("power4package").value = "300";
                 power4change("300");
                 document.querySelectorAll("#power4package option").forEach(opt => {
-                        if(opt.value == "1500500" || opt.value == "2000500" || opt.value == "200" || opt.value == "1000200") {
+                        /*if(opt.value == "1500500" || opt.value == "2000500" || opt.value == "200" || opt.value == "1000200") {
                             opt.style.display = "none";
-                        }
+                        }*/
                         if (opt.value == "300") {
                             opt.style.display = "inline-block";
+                        }else{
+                            opt.style.display = "none";
                         }
                 });
             }else if(package == "byod"){
