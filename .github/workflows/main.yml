@@ -56,4 +56,7 @@ jobs:
           push: true
           tags: ${{ steps.prep.outputs.tags }}
       
-      - run: git push https://gitbeer.pwisetthon.com/boyphongsakorn/myaisfibre-updown-auto.git
+      #- run: git push https://gitbeer.pwisetthon.com/boyphongsakorn/myaisfibre-updown-auto.git
+
+      - name: set remote url
+      run: git remote set-url --push origin https://gitbeer.pwisetthon.com/boyphongsakorn/myaisfibre-updown-auto.git
