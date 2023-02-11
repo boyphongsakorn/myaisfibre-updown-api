@@ -89,13 +89,13 @@
                 document.getElementById("fulldownload").innerHTML = "1000/300 Mbps";
             }else if(package == "power4"){
                 document.getElementById("power4package").style.display = "inline-block";
-                document.getElementById("power4package").value = "500";
-                power4change("500");
+                //document.getElementById("power4package").value = "500";
+                //power4change("500");
                 document.querySelectorAll("#power4package option").forEach(opt => {
                         if(opt.value == "1500500" || opt.value == "2000500" || opt.value == "200" || opt.value == "300") {
                             opt.style.display = "none";
                         }
-                        if (opt.value == "1000200" || opt.value == "500") {
+                        if (opt.value == "1000200" /*|| opt.value == "500"*/) {
                             opt.style.display = "inline-block";
                         }
                 });
