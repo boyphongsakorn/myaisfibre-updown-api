@@ -126,6 +126,9 @@
                     }
                     if (opt.value == "500" || opt.value == "1000500") {
                         opt.style.display = "inline-block";
+                        if(opt.value == "500"){
+                            opt.innerText = "500/500 Mbps (retire package)"
+                        }
                     }
                 });
             }else if(package == "serenade" || package == "supermesh"){
@@ -153,6 +156,9 @@
                     }
                     if (opt.value == "200" || opt.value == "300" || opt.value == "500"){
                         opt.style.display = "inline-block";
+                        if(opt.value == "500"){
+                            opt.innerText = "500/500 Mbps"
+                        }
                     }
                 });
             }
