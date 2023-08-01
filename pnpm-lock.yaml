@@ -344,7 +344,7 @@ packages:
   /node-upnp-utils@0.0.5:
     resolution: {integrity: sha512-/EoEv9oS5xYxCx4ZJi/azM3rAiG/iPN85B5ZrYAMzRzv0e9zUruQzkI7aEft3EPRDiEqL58Iw5u5Wiar7Th17g==}
     dependencies:
-      xml2js: 0.4.23
+      xml2js: 0.6.2
     dev: false
 
   /nth-check@2.1.1:
@@ -519,8 +519,8 @@ packages:
     engines: {node: '>= 8'}
     dev: false
 
-  /xml2js@0.4.23:
-    resolution: {integrity: sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==}
+  /xml2js@0.6.2:
+    resolution: {integrity: sha512-T4rieHaC1EXcES0Kxxj4JWgaUQHDk+qwHcYOCFHfiwKz7tOVPLq7Hjq9dM1WCMhylqMEfP7hMcOIChvotiZegA==}
     engines: {node: '>=4.0.0'}
     dependencies:
       sax: 1.2.4
