@@ -90,6 +90,13 @@
                 document.getElementById("power4package").value = "300";
                 power4change("300");
                 document.querySelectorAll("#power4package option").forEach(opt => {
+                        if(opt.value == "500"){
+                            if(lang == 'th' || navigator.language == 'th-TH'){
+                                opt.innerText = "500/500 Mbps"
+                            } else {
+                                opt.innerText = "500/500 Mbps"
+                            }
+                        }
                         if (opt.value == "300" || opt.value == "500" || opt.value == "1000500") {
                             opt.style.display = "inline-block";
                         } else {
