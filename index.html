@@ -142,6 +142,13 @@
                         /*if(opt.value == "1500500" || opt.value == "2000500" || opt.value == "200" || opt.value == "1000200") {
                             opt.style.display = "none";
                         }*/
+                        if(opt.value == "500"){
+                            if(lang == 'th' || navigator.language == 'th-TH'){
+                                opt.innerText = "500/500 Mbps"
+                            } else {
+                                opt.innerText = "500/500 Mbps"
+                            }
+                        }
                         if (opt.value == "500") {
                             opt.style.display = "inline-block";
                         }else{
