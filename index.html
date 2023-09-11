@@ -85,10 +85,19 @@
 
         function packagechange(package){
             if(package == "broadband24"){
-                document.getElementById("power4package").style.display = "none";
-                document.getElementById("normal").innerHTML = "500/500 Mbps";
-                document.getElementById("fullupload").innerHTML = "300/1000 Mbps";
-                document.getElementById("fulldownload").innerHTML = "1000/300 Mbps";
+                // document.getElementById("power4package").style.display = "none";
+                document.getElementById("power4package").style.display = "inline-block";
+                power4change("300");
+                document.querySelectorAll("#power4package option").forEach(opt => {
+                        if (opt.value == "300" || opt.value == "500" || opt.value == "1000500") {
+                            opt.style.display = "inline-block";
+                        } else {
+                            opt.style.display = "none";
+                        }
+                });
+                // document.getElementById("normal").innerHTML = "500/500 Mbps";
+                // document.getElementById("fullupload").innerHTML = "300/1000 Mbps";
+                // document.getElementById("fulldownload").innerHTML = "1000/300 Mbps";
             }else if(package == "power4"){
                 document.getElementById("power4package").style.display = "inline-block";
                 //document.getElementById("power4package").value = "500";
