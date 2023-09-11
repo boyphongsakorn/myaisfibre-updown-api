@@ -79,7 +79,7 @@
 
         if(lang == 'th' || navigator.language == 'th-TH'){
             document.getElementById('desp').innerText = 'ตั้งโฮสต์ส่วนตัว เพื่อเรียก API ปรับสปีดอินเทอร์เน็ต';
-            document.getElementById('becareful').innerHTML = '*ไม่ใช่ทุกแพ็กเกจมีคุณสมบัตินี้ คุณจะต้องตรวจสอบแพ็กเกจของคุณหรือตรวจสอบฟังก์ชั่น "ปรับสปีดอินเทอร์เน็ต" ที่ myaisfibre.com<br>รับความเสี่ยงด้วยตัวเอง เมื่อคุณใช้ API นี้ หากคุณโดนแบน ไม่ได้ความผิดเรา';
+            document.getElementById('becareful').innerHTML = '*ไม่ใช่ทุกแพ็กเกจมีคุณสมบัตินี้ ตรวจสอบแพ็กเกจของคุณหรือตรวจสอบฟังก์ชั่น "ปรับสปีดอินเทอร์เน็ต" ได้ที่ myaisfibre.com<br>รับความเสี่ยงด้วยตัวเอง เมื่อคุณใช้ API นี้';
             document.getElementById('lupdate').innerText = 'อัปเดตล่าสุด: 11/09/2023'
         }
 
@@ -250,7 +250,7 @@
                     document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
                     document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
                 }
-            }else if(packagename == "byod"){
+            }else if(packagename == "byod" || packagename == "power4starter"){
                 if(package == "500"){
                     document.getElementById("normal").innerHTML = "500/500 Mbps";
                     document.getElementById("fullupload").innerHTML = "300/1000 Mbps";
