@@ -209,7 +209,9 @@
             }else if(package == "supermeshplus"){
                 document.getElementById("power4package").style.display = "inline-block";
                 document.querySelectorAll("#power4package option").forEach(opt => {
-                    if (opt.value != "1000500" && opt.value != "500") {
+                    if (opt.value == "1000500" || opt.value == "500") {
+                        opt.style.display = "inline-block";
+                    } else {
                         opt.style.display = "none";
                     }
                 });
