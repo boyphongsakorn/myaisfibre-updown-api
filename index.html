@@ -27,7 +27,7 @@
             <option value="supermesh">SuperMESH WiFi</option>
             <option value="supermeshplus">SuperMESH Plus</option>
             <option value="broadband24">BROADBAND24</option>
-            <option value="power4">POWER4 Special II</option>
+            <option value="power4">POWER4 Special II (แพ็คเกจนี้ไม่มีแล้ว)</option>
             <option value="esports">eSports (แพ็คเกจนี้ไม่มีแล้ว)</option>
             <option value="power4online">POWER4 Online</option>
             <option value="power4starter">POWER4 Starter</option>
@@ -209,12 +209,12 @@
             }else if(package == "supermeshplus"){
                 document.getElementById("power4package").style.display = "inline-block";
                 document.querySelectorAll("#power4package option").forEach(opt => {
-                    if (opt.value != "1000500" || opt.value != "500") {
+                    if (opt.value != "1000500" && opt.value != "500") {
                         opt.style.display = "none";
                     }
                 });
-                document.getElementById("power4package").value = "1000500";
-                power4change("1000500");
+                document.getElementById("power4package").value = "500";
+                power4change("500");
             }else if(package == "esports"){
                 document.getElementById("power4package").style.display = "inline-block";
                 document.getElementById("power4package").value = "200";
