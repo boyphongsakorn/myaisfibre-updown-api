@@ -87,6 +87,7 @@
             if(package == "broadband24"){
                 // document.getElementById("power4package").style.display = "none";
                 document.getElementById("power4package").style.display = "inline-block";
+                document.getElementById("power4package").value = "300";
                 power4change("300");
                 document.querySelectorAll("#power4package option").forEach(opt => {
                         if (opt.value == "300" || opt.value == "500" || opt.value == "1000500") {
@@ -128,7 +129,7 @@
                 });
             }else if(package == "power4starter"){
                 document.getElementById("power4package").style.display = "inline-block";
-                document.getElementById("power4package").value = "300";
+                document.getElementById("power4package").value = "500";
                 power4change("500");
                 document.querySelectorAll("#power4package option").forEach(opt => {
                         /*if(opt.value == "1500500" || opt.value == "2000500" || opt.value == "200" || opt.value == "1000200") {
@@ -247,6 +248,20 @@
                 }
             }else if(packagename == "serenade"){
                 if(package == "1000500"){
+                    document.getElementById("normal").innerHTML = "750/750 Mbps";
+                    document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
+                }
+            } else if(packagename == "broadband24"){
+                if(package == "300"){
+                    document.getElementById("normal").innerHTML = "300/300 Mbps";
+                    document.getElementById("fullupload").innerHTML = "50/600 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "600/50 Mbps";
+                }else if(package == "500"){
+                    document.getElementById("normal").innerHTML = "500/500 Mbps";
+                    document.getElementById("fullupload").innerHTML = "300/1000 Mbps";
+                    document.getElementById("fulldownload").innerHTML = "1000/300 Mbps";
+                }else if(package == "1000500"){
                     document.getElementById("normal").innerHTML = "750/750 Mbps";
                     document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
                     document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
