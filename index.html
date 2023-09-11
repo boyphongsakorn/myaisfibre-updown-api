@@ -25,11 +25,13 @@
             <option value="serenade">Serenade</option>
             <option value="byod">BYOD</option>
             <option value="supermesh">SuperMESH WiFi</option>
+            <option value="supermeshplus">SuperMESH Plus</option>
             <option value="broadband24">BROADBAND24</option>
             <option value="power4">POWER4 Special II</option>
             <option value="esports">eSports (แพ็คเกจนี้ไม่มีแล้ว)</option>
             <option value="power4online">POWER4 Online</option>
             <option value="power4starter">POWER4 Starter</option>
+            <option value="power4giga">POWER4 GIGA</option>
         </select>
         <select id="power4package" style="margin: 10px;display: none;" onchange="power4change(this.value)">
             <option value="200">200/200 Mbps</option>
@@ -158,6 +160,17 @@
                 document.getElementById("normal").innerHTML = "500/500 Mbps";
                 document.getElementById("fullupload").innerHTML = "300/1000 Mbps";
                 document.getElementById("fulldownload").innerHTML = "1000/300 Mbps";
+            }else if(package == "power4giga"){
+                document.getElementById("power4package").style.display = "inline-block";
+                document.getElementById("power4package").value = "1000500";
+                power4change("1000500");
+                document.querySelectorAll("#power4package option").forEach(opt => {
+                        if (opt.value == "1000500") {
+                            opt.style.display = "inline-block";
+                        }else{
+                            opt.style.display = "none";
+                        }
+                });
             }else if(package == "byod"){
                 document.getElementById("power4package").style.display = "inline-block";
                 document.getElementById("power4package").value = "500";
@@ -193,6 +206,15 @@
                 /*document.getElementById("normal").innerHTML = "750/750 Mbps";
                 document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
                 document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";*/
+            }else if(package == "supermeshplus"){
+                document.getElementById("power4package").style.display = "inline-block";
+                document.querySelectorAll("#power4package option").forEach(opt => {
+                    if (opt.value != "1000500" || opt.value != "500") {
+                        opt.style.display = "none";
+                    }
+                });
+                document.getElementById("power4package").value = "1000500";
+                power4change("1000500");
             }else if(package == "esports"){
                 document.getElementById("power4package").style.display = "inline-block";
                 document.getElementById("power4package").value = "200";
@@ -253,7 +275,7 @@
                     document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
                     document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
                 }
-            }else if(packagename == "byod" || packagename == "power4starter"){
+            }else if(packagename == "byod" || packagename == "power4starter" || packagename == "power4giga" || packagename == "supermeshplus"){
                 if(package == "500"){
                     document.getElementById("normal").innerHTML = "500/500 Mbps";
                     document.getElementById("fullupload").innerHTML = "300/1000 Mbps";
