@@ -15,8 +15,8 @@ dependencies:
     specifier: ^3.3.2
     version: 3.3.2
   node-upnp-utils:
-    specifier: ^0.0.5
-    version: 0.0.5
+    specifier: ^1.0.0
+    version: 1.0.0
 
 packages:
 
@@ -341,8 +341,8 @@ packages:
       formdata-polyfill: 4.0.10
     dev: false
 
-  /node-upnp-utils@0.0.5:
-    resolution: {integrity: sha512-/EoEv9oS5xYxCx4ZJi/azM3rAiG/iPN85B5ZrYAMzRzv0e9zUruQzkI7aEft3EPRDiEqL58Iw5u5Wiar7Th17g==}
+  /node-upnp-utils@1.0.0:
+    resolution: {integrity: sha512-6QhWiFSqBwfTlO1tUzlylS5mB7lByA002Rk70CCqfUAyVEz4h2vQXkUKz0HSc2ncx4QI20lT13wNiONyPtheZA==}
     dependencies:
       xml2js: 0.6.2
     dev: false
