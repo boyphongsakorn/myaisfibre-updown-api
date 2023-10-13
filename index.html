@@ -17,10 +17,15 @@
     <div class="container" style="text-align: center;">
         <h3>My Ais Fibre Upload/Download API*</h3>
         <p id="desp">A self-host toggle speed api call</p>
+        <div style="background-color: rgb(143, 74, 74);padding: 10px;border-radius: 10px;margin-bottom: 10px;" id="systemalert">
+            Update 14/10/2023 : Ais Fibre change their api. change speed only stand for 30 hours and can change speed only 10 times per month. (package 1000/500 can change speed unlimited)<br>
+            new version is check your remaining speed but you can skin it by add &confirmchange=true to your url. (ex. http(s)://ip:3990/?rotatespeed=-70deg&confirmchange=true)
+        </div>
         <div style="background-color: darkgrey;padding: 10px;border-radius: 5px;">docker run -d --restart=always -p 3990:3000 --name myaisfibre-updown-auto boyphongsakorn/myaisfibre-updown-auto:latest</div>
         <select id="package" style="margin: 10px;" onchange="packagechange(this.value)">
+            <option value="entertainment">Entertainment</option>
             <option disabled>1Gbps Every Room</option>
-            <option disabled>2Gbps Fibre Package</option>
+            <option disabled>2Gbps Fibre</option>
             <option disabled>POWER4 Advance</option>
             <option value="serenade">Serenade</option>
             <option value="byod">BYOD</option>
@@ -33,7 +38,7 @@
             <option value="power4starter">POWER4 Starter</option>
             <option value="power4giga">POWER4 GIGA</option>
         </select>
-        <select id="power4package" style="margin: 10px;display: none;" onchange="power4change(this.value)">
+        <select id="power4package" style="margin: 10px;" onchange="power4change(this.value)">
             <option value="200">200/200 Mbps</option>
             <option value="300">300/300 Mbps</option>
             <option value="500">500/500 Mbps</option>
@@ -82,8 +87,11 @@
         if(lang == 'th' || navigator.language == 'th-TH'){
             document.getElementById('desp').innerText = 'ตั้งโฮสต์ส่วนตัว เพื่อเรียก API ปรับสปีดอินเทอร์เน็ต';
             document.getElementById('becareful').innerHTML = '*ไม่ใช่ทุกแพ็กเกจมีคุณสมบัตินี้ ตรวจสอบแพ็กเกจของคุณหรือตรวจสอบฟังก์ชั่น "ปรับสปีดอินเทอร์เน็ต" ได้ที่ myaisfibre.com<br>รับความเสี่ยงด้วยตัวเอง เมื่อคุณใช้ API นี้';
-            document.getElementById('lupdate').innerText = 'อัปเดตล่าสุด: 11/09/2023'
+            document.getElementById('lupdate').innerText = 'อัปเดตล่าสุด: 14 ตุลาคม 2566';
+            document.getElementById('systemalert').innerHTML = 'อัปเดตล่าสุด 14 ตุลาคม 2566 : AIS Fibre ได้เปลี่ยน API การเปลี่ยนสปีดหนึ่งครั้งสามารถอยู่ได้ 30 ชั่วโมง และสามารถเปลี่ยนสปีดได้เพียง 10 ครั้งต่อเดือน (แพ็คเกจ 1000/500 สามารถเปลี่ยนสปีดได้ไม่จำกัด)<br>เวอร์ชั่นใหม่ ตรวจสอบเวลาการใช้งานที่เหลือ แต่คุณสามารถข้ามมันได้โดยการเพิ่ม &confirmchange=true ใน url ของคุณ (เช่น http(s)://ip:3990/?rotatespeed=-70deg&confirmchange=true)';
         }
+
+        packagechange("entertainment")
 
         function packagechange(package){
             if(package == "broadband24"){
@@ -103,6 +111,13 @@
                             opt.style.display = "inline-block";
                         } else {
                             opt.style.display = "none";
+                        }
+                        if(opt.value == "1000500"){
+                            if(lang == 'th' || navigator.language == 'th-TH'){
+                                opt.innerText = "1000/500 Mbps"
+                            } else {
+                                opt.innerText = "1000/500 Mbps"
+                            }
                         }
                 });
                 // document.getElementById("normal").innerHTML = "500/500 Mbps";
@@ -165,13 +180,14 @@
                 document.getElementById("power4package").value = "1000500";
                 power4change("1000500");
                 document.querySelectorAll("#power4package option").forEach(opt => {
-                        if (opt.value == "1000500") {
-                            opt.style.display = "inline-block";
-                        }else{
-                            opt.style.display = "none";
-                        }
+                    if (opt.value == "1000500") {
+                        opt.innerText = "1000/500 Mbps";
+                        opt.style.display = "inline-block";
+                    }else{
+                        opt.style.display = "none";
+                    }
                 });
-            }else if(package == "byod"){
+            }else if(package == "byod" || package== "entertainment"){
                 document.getElementById("power4package").style.display = "inline-block";
                 document.getElementById("power4package").value = "500";
                 power4change("500");
@@ -183,22 +199,44 @@
                     if (opt.value == "500" || opt.value == "1000500") {
                         opt.style.display = "inline-block";
                         if(opt.value == "500"){
-                            if(lang == 'th' || navigator.language == 'th-TH'){
-                                opt.innerText = "500/500 Mbps (แพ็คเกจนี้ไม่มีแล้ว)"
+                            if(package== "entertainment") {
+                                if(lang == 'th' || navigator.language == 'th-TH'){
+                                    opt.innerText = "500/500 Mbps (แพ็คเกจนี้ไม่เห็นในเว็บว่าปรับได้ แต่ไม่มั่นใจว่าปรับได้หรือไม่)"
+                                } else {
+                                    opt.innerText = "500/500 Mbps (This package is not seen on the website as being adjustable. But I'm not sure if it can be adjusted or not.)"
+                                }
                             } else {
-                                opt.innerText = "500/500 Mbps (retire package)"
+                                if(lang == 'th' || navigator.language == 'th-TH'){
+                                    opt.innerText = "500/500 Mbps (แพ็คเกจนี้ไม่มีแล้ว)"
+                                } else {
+                                    opt.innerText = "500/500 Mbps (retire package)"
+                                }
+                            }
+                        }
+                        if(opt.value == "1000500"){
+                            if(lang == 'th' || navigator.language == 'th-TH'){
+                                opt.innerText = "1000/500 Mbps (แพ็คเกจนี้ไม่เห็นในเว็บว่าปรับได้ แต่ไม่มั่นใจว่าปรับได้หรือไม่)"
+                            } else {
+                                opt.innerText = "1000/500 Mbps (This package is not seen on the website as being adjustable. But I'm not sure if it can be adjusted or not.)"
                             }
                         }
                     }
                 });
             }else if(package == "serenade" || package == "supermesh"){
                 document.getElementById("power4package").style.display = "inline-block";
-                if(package == "serenade"){
-                    document.getElementById("power4package").style.display = "none";
-                }
+                // if(package == "serenade"){
+                //     document.getElementById("power4package").style.display = "none";
+                // }
                 document.querySelectorAll("#power4package option").forEach(opt => {
                     if (opt.value != "1000500") {
                         opt.style.display = "none";
+                    }
+                    if(opt.value == "1000500"){
+                        if(lang == 'th' || navigator.language == 'th-TH'){
+                            opt.innerText = "1000/500 Mbps (แพ็คเกจนี้ไม่เห็นในเว็บว่าปรับได้ แต่ไม่มั่นใจว่าปรับได้หรือไม่)"
+                        } else {
+                            opt.innerText = "1000/500 Mbps (This package is not seen on the website as being adjustable. But I'm not sure if it can be adjusted or not.)"
+                        }
                     }
                 });
                 document.getElementById("power4package").value = "1000500";
@@ -209,6 +247,12 @@
             }else if(package == "supermeshplus"){
                 document.getElementById("power4package").style.display = "inline-block";
                 document.querySelectorAll("#power4package option").forEach(opt => {
+                    if(opt.value == "500"){
+                            opt.innerText = "500/500 Mbps"
+                    }
+                    if(opt.value == "1000500"){
+                        opt.innerText = "1000/500 Mbps"
+                    }
                     if (opt.value == "1000500" || opt.value == "500") {
                         opt.style.display = "inline-block";
                     } else {
@@ -277,7 +321,7 @@
                     document.getElementById("fullupload").innerHTML = "500/1000 Mbps";
                     document.getElementById("fulldownload").innerHTML = "1000/500 Mbps";
                 }
-            }else if(packagename == "byod" || packagename == "power4starter" || packagename == "power4giga" || packagename == "supermeshplus"){
+            }else if(packagename == "byod" || packagename == "power4starter" || packagename == "power4giga" || packagename == "supermeshplus" || packagename == "entertainment"){
                 if(package == "500"){
                     document.getElementById("normal").innerHTML = "500/500 Mbps";
                     document.getElementById("fullupload").innerHTML = "300/1000 Mbps";

@@ -4,6 +4,7 @@ const cheerio = require('cheerio');
 
 let intnumber = process.env.aisfiber_internet_id || 'xxxxxxxxxx'
 let speed = "500/500";
+let lastrotate = '0deg';
 let lasttime = new Date();
 let nowtime = lasttime;
 let headers = {
@@ -27,13 +28,17 @@ nowtime = new Date(lasttime.getTime() - (5 * 60 * 1000));
 fastify.get('/', async (request, reply) => {
     //let rotateofspeed from query rotatespeed
     let rotatespeed = request.query.rotatespeed
+    let confirmchange = request.query.confirmchange ? request.query.confirmchange : 'false'
     if (intnumber == 'xxxxxxxxxx' || intnumber == '' || intnumber.length != 10) {
-        return { result: 'ignore', Msg: 'Please set internet id in environment variable : aisfiber_internet_id' }
+        return { result: 'ignore', message: 'Please set internet id in environment variable : aisfiber_internet_id' }
     }
-    //if lasttime < nowtime 5 minute
     nowtime = new Date();
     if (lasttime.getTime() + 300000 > nowtime.getTime() && lasttime.getTime() != nowtime.getTime()) {
-        return { result: 'ignore', Msg: 'please wait 5 minutes for next request' }
+        if(lastrotate == rotatespeed){
+            return { result: 'ignore', message: 'same speed don\'t need to change' }
+        } else {
+            return { result: 'ignore', message: 'please wait 5 minutes for next request' }
+        }
     } else {
         const myspeed = await fetch('https://myaisfibre.com/')
         const $ = cheerio.load(await myspeed.text());
@@ -53,6 +58,39 @@ fastify.get('/', async (request, reply) => {
                 
             }
         }
+        const toggleSpeed = await fetch('https://myaisfibre.com/?page=toggleSpeed&lang=th');
+        const $toggleSpeed = cheerio.load(await toggleSpeed.text());
+        //get text from span id remainingTimeHour and remainingTimeMinute
+        let remainingTimeHour = $toggleSpeed('span#remainingTimeHour').text();
+        let remainingTimeMinute = $toggleSpeed('span#remainingTimeMinute').text();
+        //get all div class wallGarden-Header-Text
+        let wallGardenHeaderText = $toggleSpeed('div.wallGarden-Header-Text');
+        //console all div class wallGarden-Header-Text text
+        for (let i = 0; i < wallGardenHeaderText.length; i++) {
+            if (wallGardenHeaderText[i].children[0].data.includes('ระยะเวลาใช้งานคงเหลือ')) {
+                let hour = 0;
+                let minute = 0;
+                //get hour between ระยะเวลาใช้งานคงเหลือ and ชั่วโมง
+                try {
+                    hour = parseInt(remainingTimeHour)
+                } catch (error) {
+                    hour = 0;
+                }
+                //get minute between ระยะเวลาใช้งานคงเหลือ and นาที
+                try {
+                    minute = parseInt(remainingTimeMinute)
+                } catch (error) {
+                    minute = 0;
+                }
+                //if hour > 0 or minute > 0
+                if ((hour > 0 || minute > 0) && confirmchange == 'false') {
+                    //return ignore and error 500
+                    reply.code(404)
+                    return { result: 'ignore', message: 'time remaining ' + hour + ' hour ' + minute + ' minute' }
+                    // return { result: 'ignore', message: 'ระยะเวลาใช้งานคงเหลือ ' + hour + ' ชั่วโมง ' + minute + ' นาที' }
+                }
+            }
+        }
         const getrequest = await fetch("https://myaisfibre.com/index.php", { "headers": headers, "body": "page=toggleSpeed&action=confirmChangeSpeed&data=rotate(" + rotatespeed + ")", "method": "POST" })
         const getresponse = await getrequest.json();
         console.log(speed);
@@ -63,15 +101,16 @@ fastify.get('/', async (request, reply) => {
             const result = confrimresponse.Result || confrimresponse.result;
             if (result.toUpperCase() == 'SUCCESS') {
                 lasttime = new Date();
-                return { result: 'success', Msg: 'change internet speed to ' + confrimresponse.data }
+                lastrotate = rotatespeed;
+                return { result: 'success', message: 'change internet speed to ' + confrimresponse.data }
             } else {
-                return { result: 'error', Msg: confrimresponse.detail }
+                return { result: 'error', message: confrimresponse.detail }
             }
         } else {
             if(getresponse.Msg == speed){
-                return { result: 'ignore', Msg: 'same speed don\'t need to change' }
+                return { result: 'ignore', message: 'same speed don\'t need to change' }
             }else{
-                return { result: 'error', Msg: getresponse.Msg }
+                return { result: 'error', message: getresponse.Msg }
             }
         }
     }
