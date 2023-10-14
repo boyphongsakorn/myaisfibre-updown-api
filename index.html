@@ -232,10 +232,18 @@
                         opt.style.display = "none";
                     }
                     if(opt.value == "1000500"){
-                        if(lang == 'th' || navigator.language == 'th-TH'){
-                            opt.innerText = "1000/500 Mbps (แพ็คเกจนี้ไม่เห็นในเว็บว่าปรับได้ แต่ไม่มั่นใจว่าปรับได้หรือไม่)"
+                        if(package == "serenade") {
+                            if(lang == 'th' || navigator.language == 'th-TH'){
+                                opt.innerText = "1000/500 Mbps (แพ็คเกจนี้ไม่มีแล้ว)"
+                            } else {
+                                opt.innerText = "1000/500 Mbps (retire package)"
+                            }
                         } else {
-                            opt.innerText = "1000/500 Mbps (This package is not seen on the website as being adjustable. But I'm not sure if it can be adjusted or not.)"
+                            if(lang == 'th' || navigator.language == 'th-TH'){
+                                opt.innerText = "1000/500 Mbps (แพ็คเกจนี้ไม่เห็นในเว็บว่าปรับได้ แต่ไม่มั่นใจว่าปรับได้หรือไม่)"
+                            } else {
+                                opt.innerText = "1000/500 Mbps (This package is not seen on the website as being adjustable. But I'm not sure if it can be adjusted or not.)"
+                            }
                         }
                     }
                 });
