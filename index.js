@@ -63,6 +63,7 @@ fastify.get('/', async (request, reply) => {
         //get text from span id remainingTimeHour and remainingTimeMinute
         let remainingTimeHour = $toggleSpeed('span#remainingTimeHour').text();
         let remainingTimeMinute = $toggleSpeed('span#remainingTimeMinute').text();
+        let remainingCount = $toggleSpeed('span#remainingCount').text();
         //get all div class wallGarden-Header-Text
         let wallGardenHeaderText = $toggleSpeed('div.wallGarden-Header-Text');
         //console all div class wallGarden-Header-Text text
@@ -90,6 +91,10 @@ fastify.get('/', async (request, reply) => {
                     // return { result: 'ignore', message: 'ระยะเวลาใช้งานคงเหลือ ' + hour + ' ชั่วโมง ' + minute + ' นาที' }
                 }
             }
+        }
+        if (parseInt(remainingCount) < 1) {
+            reply.code(404)
+            return { result: 'ignore', message: 'can\'t change speed because remain count change is ' + remainingCount }
         }
         const getrequest = await fetch("https://myaisfibre.com/index.php", { "headers": headers, "body": "page=toggleSpeed&action=confirmChangeSpeed&data=rotate(" + rotatespeed + ")", "method": "POST" })
         const getresponse = await getrequest.json();
