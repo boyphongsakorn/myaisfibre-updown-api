@@ -94,8 +94,11 @@ fastify.get('/', async (request, reply) => {
             }
         }
         if (parseInt(remainingCount) < 1 || lastremainingCount < 1) {
-            if (remainingCount != undefined && remainingCount != '') {
-                lastremainingCount = remainingCount;
+            try {
+                if (remainingCount != undefined && remainingCount != '') {
+                    lastremainingCount = remainingCount;
+                }
+            } catch (error) {
             }
             reply.code(404)
             return { result: 'ignore', message: 'can\'t change speed because remain count change is ' + remainingCount }
