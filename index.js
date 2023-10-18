@@ -5,6 +5,7 @@ const cheerio = require('cheerio');
 let intnumber = process.env.aisfiber_internet_id || 'xxxxxxxxxx'
 let speed = "500/500";
 let lastrotate = '0deg';
+let lastremainingCount = 0;
 let lasttime = new Date();
 let nowtime = lasttime;
 let headers = {
@@ -92,7 +93,10 @@ fastify.get('/', async (request, reply) => {
                 }
             }
         }
-        if (parseInt(remainingCount) < 1) {
+        if (parseInt(remainingCount) < 1 || lastremainingCount < 1) {
+            if (remainingCount != undefined && remainingCount != '') {
+                lastremainingCount = remainingCount;
+            }
             reply.code(404)
             return { result: 'ignore', message: 'can\'t change speed because remain count change is ' + remainingCount }
         }
