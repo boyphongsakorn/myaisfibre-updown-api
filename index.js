@@ -68,7 +68,11 @@ fastify.get('/', async (request, reply) => {
         //get all div class wallGarden-Header-Text
         let wallGardenHeaderText = $toggleSpeed('div.wallGarden-Header-Text');
         //console all div class wallGarden-Header-Text text
+        let isUse = false;
         for (let i = 0; i < wallGardenHeaderText.length; i++) {
+            if (wallGardenHeaderText[i].children[0].data.includes('ขณะนี้ท่านกำลังใช้งานปรับความเร็วเน็ต')) {
+                isUse = true;
+            }
             if (wallGardenHeaderText[i].children[0].data.includes('ระยะเวลาใช้งานคงเหลือ')) {
                 let hour = 0;
                 let minute = 0;
@@ -86,10 +90,12 @@ fastify.get('/', async (request, reply) => {
                 }
                 //if hour > 0 or minute > 0
                 if ((hour > 0 || minute > 0) && confirmchange == 'false') {
-                    //return ignore and error 500
-                    reply.code(404)
-                    return { result: 'ignore', message: 'time remaining ' + hour + ' hour ' + minute + ' minute' }
-                    // return { result: 'ignore', message: 'ระยะเวลาใช้งานคงเหลือ ' + hour + ' ชั่วโมง ' + minute + ' นาที' }
+                    if (isUse) {
+                        //return ignore and error 500
+                        reply.code(404)
+                        return { result: 'ignore', message: 'time remaining ' + hour + ' hour ' + minute + ' minute' }
+                        // return { result: 'ignore', message: 'ระยะเวลาใช้งานคงเหลือ ' + hour + ' ชั่วโมง ' + minute + ' นาที' }
+                    }
                 }
             }
         }
@@ -101,7 +107,7 @@ fastify.get('/', async (request, reply) => {
             } catch (error) {
             }
             reply.code(404)
-            return { result: 'ignore', message: 'can\'t change speed because remain count change is ' + remainingCount }
+            return { result: 'ignore', message: 'can\'t change speed because have no remaining change speed' }
         }
         const getrequest = await fetch("https://myaisfibre.com/index.php", { "headers": headers, "body": "page=toggleSpeed&action=confirmChangeSpeed&data=rotate(" + rotatespeed + ")", "method": "POST" })
         const getresponse = await getrequest.json();
