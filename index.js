@@ -99,7 +99,7 @@ fastify.get('/', async (request, reply) => {
                 }
             }
         }
-        if (parseInt(remainingCount) < 1 || lastremainingCount < 1) {
+        if (parseInt(remainingCount) < 1 && lastremainingCount == 1) {
             try {
                 if (remainingCount != undefined && remainingCount != '') {
                     lastremainingCount = remainingCount;
