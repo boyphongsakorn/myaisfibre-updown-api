@@ -67,13 +67,20 @@ fastify.get('/', async (request, reply) => {
         let remainingCount = $toggleSpeed('span#remainingCount').text();
         //get all div class wallGarden-Header-Text
         let wallGardenHeaderText = $toggleSpeed('div.wallGarden-Header-Text');
+        let menu_text = $toggleSpeed('div.menu-text');
+        let isenable = false;
+        for (let i = 0; i < menu_text.length; i++) {
+            if(menu_text[i].children[0].data.includes('ปรับ')){
+                isenable = true;
+            }
+        }
+        if(!isenable){
+            reply.code(404)
+            return { result: 'ignore', message: 'your package can\'t change speed' }
+        }
         //console all div class wallGarden-Header-Text text
         let isUse = false;
         for (let i = 0; i < wallGardenHeaderText.length; i++) {
-            if (wallGardenHeaderText[i].children[0].data.includes('ประกาศ')) {
-                reply.code(404)
-                return { result: 'ignore', message: 'your package can\'t change speed' }
-            }
             if (wallGardenHeaderText[i].children[0].data.includes('ขณะนี้ท่านกำลังใช้งานปรับความเร็วเน็ต')) {
                 isUse = true;
             }
