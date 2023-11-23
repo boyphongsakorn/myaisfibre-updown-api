@@ -70,6 +70,10 @@ fastify.get('/', async (request, reply) => {
         //console all div class wallGarden-Header-Text text
         let isUse = false;
         for (let i = 0; i < wallGardenHeaderText.length; i++) {
+            if (wallGardenHeaderText[i].children[0].data.includes('ประกาศ')) {
+                reply.code(404)
+                return { result: 'ignore', message: 'your package can\'t change speed' }
+            }
             if (wallGardenHeaderText[i].children[0].data.includes('ขณะนี้ท่านกำลังใช้งานปรับความเร็วเน็ต')) {
                 isUse = true;
             }
