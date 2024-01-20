@@ -110,7 +110,7 @@ fastify.get('/', async (request, reply) => {
                 }
             }
         }
-        if (parseInt(remainingCount) < 1) {
+        if (parseInt(remainingCount) < 1 || remainingCount.includes('-')) {
             try {
                 if (remainingCount != undefined && remainingCount != '') {
                     lastremainingCount = remainingCount;
