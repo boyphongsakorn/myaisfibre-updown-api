@@ -114,6 +114,8 @@ fastify.get('/', async (request, reply) => {
             try {
                 if (remainingCount != undefined || remainingCount != '') {
                     lastremainingCount = remainingCount;
+                    reply.code(404)
+                    return { result: 'ignore', message: 'can\'t change speed because having problem with api' }
                 }
             } catch (error) {
             }
