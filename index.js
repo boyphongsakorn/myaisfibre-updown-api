@@ -64,7 +64,7 @@ fastify.get('/', async (request, reply) => {
         //get text from span id remainingTimeHour and remainingTimeMinute
         let remainingTimeHour = $toggleSpeed('span#remainingTimeHour').text();
         let remainingTimeMinute = $toggleSpeed('span#remainingTimeMinute').text();
-        let remainingCount = $toggleSpeed('span#remainingCount').text();
+        let remainingCount = $toggleSpeed('span#remainingCount').text().trim();
         //get all div class wallGarden-Header-Text
         let wallGardenHeaderText = $toggleSpeed('div.wallGarden-Header-Text');
         let menu_text = $toggleSpeed('div.menu-text');
