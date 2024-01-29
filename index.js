@@ -111,6 +111,7 @@ fastify.get('/', async (request, reply) => {
             }
         }
         if (parseInt(remainingCount) < 1 || remainingCount.includes('-') || remainingCount == '' || remainingCount == undefined) {
+            console.log(remainingCount);
             try {
                 if (remainingCount != undefined || remainingCount != '') {
                     lastremainingCount = remainingCount;
